@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="n" default="all">
+  
+  
+  <property file="n.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.zip"/>
+    <include name="*.war"/>
+    <include name="*.egg"/>
+    <include name="*.ear"/>
+    <include name="*.swc"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+    <include name="**/?*.ftl"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.6" value="${jdk.home.1.6}/bin"/>
+  <path id="jdk.classpath.1.6">
+    <fileset dir="${jdk.home.1.6}">
+      <include name="../../../../Support/CoreDeploy.bundle/Contents/Resources/Java/deploy.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javaws.jar"/>
+      <include name="lib/jce.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/management-agent.jar"/>
+      <include name="lib/plugin.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="../Classes/alt-rt.jar"/>
+      <include name="../Classes/alt-string.jar"/>
+      <include name="../Classes/charsets.jar"/>
+      <include name="../Classes/classes.jar"/>
+      <include name="../Classes/jsse.jar"/>
+      <include name="../Classes/ui.jar"/>
+      <include name="lib/ext/apple_provider.jar"/>
+      <include name="lib/ext/dnsns.jar"/>
+      <include name="lib/ext/localedata.jar"/>
+      <include name="lib/ext/sunjce_provider.jar"/>
+      <include name="lib/ext/sunpkcs11.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.6}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.6}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.6"/>
+  
+  
+  <!-- Application Server Libraries -->
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module NanoHTTPd -->
+  
+  <dirname property="module.nanohttpd.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.nanohttpd" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.nanohttpd" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.nanohttpd" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.nanohttpd" value="${compiler.args}"/>
+  
+  <property name="nanohttpd.output.dir" value="${module.nanohttpd.basedir}/out/production/NanoHTTPd"/>
+  <property name="nanohttpd.testoutput.dir" value="${module.nanohttpd.basedir}/out/test/NanoHTTPd"/>
+  
+  <path id="nanohttpd.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="nanohttpd.module.production.classpath">
+    <path refid="${module.jdk.classpath.nanohttpd}"/>
+  </path>
+  
+  <path id="nanohttpd.runtime.production.module.classpath">
+    <pathelement location="${nanohttpd.output.dir}"/>
+  </path>
+  
+  <path id="nanohttpd.module.classpath">
+    <path refid="${module.jdk.classpath.nanohttpd}"/>
+    <pathelement location="${nanohttpd.output.dir}"/>
+  </path>
+  
+  <path id="nanohttpd.runtime.module.classpath">
+    <pathelement location="${nanohttpd.testoutput.dir}"/>
+    <pathelement location="${nanohttpd.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.nanohttpd">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.nanohttpd">
+    <patternset refid="excluded.from.module.nanohttpd"/>
+  </patternset>
+  
+  <path id="nanohttpd.module.sourcepath">
+    <dirset dir="${module.nanohttpd.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.nanohttpd" depends="compile.module.nanohttpd.production,compile.module.nanohttpd.tests" description="Compile module NanoHTTPd"/>
+  
+  <target name="compile.module.nanohttpd.production" description="Compile module NanoHTTPd; production classes">
+    <mkdir dir="${nanohttpd.output.dir}"/>
+    <javac destdir="${nanohttpd.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.nanohttpd}/javac">
+      <compilerarg line="${compiler.args.nanohttpd}"/>
+      <bootclasspath refid="nanohttpd.module.bootclasspath"/>
+      <classpath refid="nanohttpd.module.production.classpath"/>
+      <src refid="nanohttpd.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.nanohttpd"/>
+    </javac>
+    
+    <copy todir="${nanohttpd.output.dir}">
+      <fileset dir="${module.nanohttpd.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.nanohttpd.tests" depends="compile.module.nanohttpd.production" description="compile module NanoHTTPd; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.nanohttpd" description="cleanup module">
+    <delete dir="${nanohttpd.output.dir}"/>
+    <delete dir="${nanohttpd.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.nanohttpd" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.nanohttpd" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.nanohttpd:jar" value="${basedir}/out/artifacts/NanoHTTPd_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.NanoHTTPd.jar" value="${artifacts.temp.dir}/NanoHTTPd.jar"/>
+  </target>
+  
+  <target name="artifact.nanohttpd:jar" depends="init.artifacts, compile.module.nanohttpd" description="Build &apos;NanoHTTPd:jar&apos; artifact">
+    <property name="artifact.temp.output.nanohttpd:jar" value="${artifacts.temp.dir}/NanoHTTPd_jar"/>
+    <mkdir dir="${artifact.temp.output.nanohttpd:jar}"/>
+    <jar destfile="${temp.jar.path.NanoHTTPd.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset file="${basedir}/src/META-INF/MANIFEST.MF" prefix="META-INF"/>
+      <zipfileset dir="${nanohttpd.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.NanoHTTPd.jar}" tofile="${artifact.temp.output.nanohttpd:jar}/NanoHTTPd.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.nanohttpd:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.nanohttpd:jar}"/>
+    <copy todir="${artifact.output.nanohttpd:jar}">
+      <fileset dir="${artifact.temp.output.nanohttpd:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

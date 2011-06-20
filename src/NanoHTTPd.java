@@ -25,7 +25,7 @@ import java.io.FileOutputStream;
 /**
  * A simple, tiny, nicely embeddable HTTP 1.0 server in Java
  *
- * <p> NanoHTTPD version 1.21,
+ * <p> NanoHTTPd version 1.21,
  * Copyright &copy; 2001,2005-2011 Jarno Elonen (elonen@iki.fi, http://iki.fi/elonen/)
  * and Copyright &copy; 2010 Konstantinos Togias (info@ktogias.gr, http://ktogias.gr)
  *
@@ -62,7 +62,7 @@ import java.io.FileOutputStream;
  * See the end of the source file for distribution license
  * (Modified BSD licence)
  */
-public class NanoHTTPD
+public class NanoHTTPd
 {
 	// ==================================================
 	// API parts
@@ -209,7 +209,7 @@ public class NanoHTTPD
 	 * Starts a HTTP server to given port.<p>
 	 * Throws an IOException if the socket is already in use
 	 */
-	public NanoHTTPD( int port ) throws IOException
+	public NanoHTTPd(int port) throws IOException
 	{
 		myTcpPort = port;
 		myServerSocket = new ServerSocket( myTcpPort );
@@ -250,7 +250,7 @@ public class NanoHTTPD
 	 */
 	public static void main( String[] args )
 	{
-		System.out.println( "NanoHTTPD 1.21 (C) 2001,2005-2011 Jarno Elonen and (C) 2010 Konstantinos Togias\n" +
+		System.out.println( "NanoHTTPd 1.21 (C) 2001,2005-2011 Jarno Elonen and (C) 2010 Konstantinos Togias\n" +
 							"(Command line options: [port] [--licence])\n" );
 
 		// Show licence if requested
@@ -270,7 +270,7 @@ public class NanoHTTPD
 
 		try
 		{
-			new NanoHTTPD( port );
+			new NanoHTTPd( port );
 		}
 		catch( IOException ioe )
 		{
@@ -634,7 +634,7 @@ public class NanoHTTPD
 			{
 				String tmpdir = System.getProperty("java.io.tmpdir");
 				try {
-					File temp = File.createTempFile("NanoHTTPD", "", new File(tmpdir));
+					File temp = File.createTempFile("NanoHTTPd", "", new File(tmpdir));
 					OutputStream fstream = new FileOutputStream(temp);
 					fstream.write(b, offset, len);
 					fstream.close();

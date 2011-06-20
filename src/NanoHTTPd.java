@@ -435,6 +435,11 @@ public class NanoHTTPd
 
 				in.close();
 				is.close();
+                if (method.equalsIgnoreCase("GET")) {
+                    if (parms.getProperty("exit") != null) {
+                        System.exit(0);
+                    }
+                }
 			}
 			catch ( IOException ioe )
 			{

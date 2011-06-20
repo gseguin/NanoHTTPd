@@ -280,9 +280,13 @@ public class NanoHTTPd
 
 		System.out.println( "Now serving files in port " + port + " from \"" +
 							new File("").getAbsolutePath() + "\"" );
-		System.out.println( "Hit Enter to stop.\n" );
-
-		try { System.in.read(); } catch( Throwable t ) {}
+        while ( true) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace(); 
+            }
+        }
 	}
 
 	/**

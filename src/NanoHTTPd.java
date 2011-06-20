@@ -25,7 +25,7 @@ import java.io.FileOutputStream;
 /**
  * A simple, tiny, nicely embeddable HTTP 1.0 server in Java
  *
- * <p> NanoHTTPd version 1.21,
+ * <p> NanoHTTPd version 1.22,
  * Copyright &copy; 2001,2005-2011 Jarno Elonen (elonen@iki.fi, http://iki.fi/elonen/)
  * and Copyright &copy; 2010 Konstantinos Togias (info@ktogias.gr, http://ktogias.gr)
  *
@@ -250,7 +250,7 @@ public class NanoHTTPd
 	 */
 	public static void main( String[] args )
 	{
-		System.out.println( "NanoHTTPd 1.21 (C) 2001,2005-2011 Jarno Elonen and (C) 2010 Konstantinos Togias\n" +
+		System.out.println( "NanoHTTPd 1.22 (C) 2001,2005-2011 Jarno Elonen and (C) 2010 Konstantinos Togias\n" +
 							"(Command line options: [port] [--licence])\n" );
 
 		// Show licence if requested
